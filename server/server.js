@@ -1,9 +1,22 @@
 const mw = require('./config/middleware.js');
-const app = mw.express;
 const path = mw.path;
-
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var config = require("../webpack.config.js");
+var compiler = webpack(config);
 //middleware
-module.exports = app().use(
+//
+const isDeveloping = process.env.NODE_ENV !== 'production';
+var app;
+if (isDeveloping) {
+  app = new WebpackDevServer(compiler, {
+    hot: true
+  });
+} else {
+  app = mw.express();
+}
+
+app.use(
   mw.morgan('dev'),
   mw.bodyParser.json(),
   mw.bodyParser.urlencoded({extended: true}),
@@ -14,12 +27,12 @@ module.exports = app().use(
     name: 'strix.sid',
     cookie: {secure:false}
   }),
-  app.static(path.join(__dirname, '../public')),
   require('./resources/user/router.js'),
   require('./resources/ticket/router.js'),
   require('./resources/kb/router.js')
 )
-.get(/^\/(?!api).*/, (req, res) => { //serve index for any route that isn't an api call
+app.use(mw.express.static(path.join(__dirname, '../public')));
+app.get(/^\/(?!api).*/, (req, res) => { //serve index for any route that isn't an api call
   res.sendFile(path.join(__dirname, '../public', 'index.html'))
-}
-);
+});
+module.exports = app;
