@@ -77,8 +77,8 @@ module.exports = {
   deleteUser(req, res) {
     request({
       method: 'DELETE',
-      uri: `${url}/api/user/${req.params.username}/${req.params.id}`
-    }, (err, resp, body) => err ?
+      uri: `${url}/api/user/${req.params.id}/${req.params.password}`
+    }, (err, resp, body) => err ? 
       res.status(err.statusCode).send(err)
       : destroySession(req, ()=> res.status(resp.statusCode).send(JSON.parse(body)))
     );
