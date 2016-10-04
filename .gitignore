@@ -6,6 +6,10 @@ Icon
 
 public/bundle.js
 public/bundle.js.map
+
+public/test.js
+public/test.js.map
+
 data.json
 
 # Node

@@ -2,8 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './client/index.js',
-  output: { path: __dirname, filename: 'public/bundle.js' },
+  entry: {
+    bundle: './client/index.js',
+    test: './client/test/index.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/public',
+    publicPath: '/public/'
+  },
   devtool: 'source-map',
   module: {
     loaders: [
