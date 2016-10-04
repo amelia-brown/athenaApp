@@ -38,7 +38,7 @@ if (!devEnv) {
     noInfo: true,
     historyApiFallback: true,
   });
-  app.use('/public/', proxy(url.parse('http://localhost:8080/public')));
+  app.use('/public/', proxy(url.parse('http://localhost:8080/public/')));
   devServer.listen(8080, () => console.log('DEVSERVER LISTENING ON 8080'));
 }
 
