@@ -4,7 +4,7 @@ const path = mw.path;
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const config = require("../webpack.config.js");
-config.entry.bundle.unshift("webpack-dev-server/public?http://localhost:8080/");
+config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
 const compiler = webpack(config);
 var server;
 const devEnv = process.env.NODE_ENV !== 'production';
@@ -33,7 +33,12 @@ module.exports = app().use(
 if (!devEnv) {
   app.static(path.join(__dirname, '../public'));
 } else {
-  devServer = new webpackDevServer(compiler);
+  devServer = new webpackDevServer(compiler, {
+    contentBase: config.output.path,
+    hot: true,
+    historyApiFallback: false,
+    publicPath: config.output.publicPath,
+  });
   devServer.listen(8080);
 }
 

@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
+const api = 'https://localhost:3000';
 
 const sessionUtils = {
   checkSession: () => {

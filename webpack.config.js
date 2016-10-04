@@ -8,18 +8,12 @@ const config = {
 //    test: ['./client/test.js'],
   },
   output: {
-    path: __dirname + '/public',
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
-    publicPath: '/public/'
+    publicPath: '/',
   },
   quiet: true,
   devtool: 'source-map',
-  devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
-    historyApiFallback: true,
-    hot: true,
-    inline: true
-  },
   module: {
     loaders: [
       {
@@ -38,5 +32,3 @@ const config = {
 };
 
 module.exports = config;
-
-console.log('config.devServer.contentBase ',config.devServer.contentBase);
