@@ -4,7 +4,8 @@
   "description": "Application Layer for Athena",
   "main": "./server/index.js",
   "scripts": {
-    "start": "nodemon server/index.js $PORT"
+    "start": "nodemon server/index.js $PORT",
+    "start:dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",

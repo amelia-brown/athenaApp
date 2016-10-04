@@ -1,22 +1,16 @@
 const mw = require('./config/middleware.js');
+const app = mw.express;
 const path = mw.path;
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require("../webpack.config.js");
-var compiler = webpack(config);
-//middleware
-//
-const isDeveloping = process.env.NODE_ENV !== 'production';
-var app;
-if (isDeveloping) {
-  app = new WebpackDevServer(compiler, {
-    hot: true
-  });
-} else {
-  app = mw.express();
-}
+const webpackDevServer = require('webpack-dev-server');
+const webpack = require('webpack');
+const config = require("../webpack.config.js");
+config.entry.bundle.unshift("webpack-dev-server/public?http://localhost:8080/");
+const compiler = webpack(config);
+var server;
+const devEnv = process.env.NODE_ENV !== 'production';
 
-app.use(
+//middleware
+module.exports = app().use(
   mw.morgan('dev'),
   mw.bodyParser.json(),
   mw.bodyParser.urlencoded({extended: true}),
@@ -31,8 +25,15 @@ app.use(
   require('./resources/ticket/router.js'),
   require('./resources/kb/router.js')
 )
-app.use(mw.express.static(path.join(__dirname, '../public')));
-app.get(/^\/(?!api).*/, (req, res) => { //serve index for any route that isn't an api call
-  res.sendFile(path.join(__dirname, '../public', 'index.html'))
-});
-module.exports = app;
+
+
+.get(/^\/(?!api).*/, (req, res) => { //serve index for any route that isn't an api call
+  res.sendFile(path.join(__dirname, '../public', 'index.html'))});
+
+if (!devEnv) {
+  app.static(path.join(__dirname, '../public'));
+} else {
+  devServer = new webpackDevServer(compiler);
+  devServer.listen(8080);
+}
+
