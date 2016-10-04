@@ -10,9 +10,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: 'http://localhost:8080/public/',
   },
-  quiet: true,
   devtool: 'source-map',
   module: {
     loaders: [

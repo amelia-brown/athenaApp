@@ -1,16 +1,19 @@
 const mw = require('./config/middleware.js');
-const app = mw.express;
 const path = mw.path;
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const config = require("../webpack.config.js");
-config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
+config.entry.bundle.unshift("webpack/hot/dev-server", "webpack-dev-server/bundle?http://localhost:8080/");
 const compiler = webpack(config);
 var server;
 const devEnv = process.env.NODE_ENV !== 'production';
+const proxy = require('proxy-middleware');
+const url = require('url');
+
+const app = mw.express();
 
 //middleware
-module.exports = app().use(
+app.use(
   mw.morgan('dev'),
   mw.bodyParser.json(),
   mw.bodyParser.urlencoded({extended: true}),
@@ -26,19 +29,21 @@ module.exports = app().use(
   require('./resources/kb/router.js')
 )
 
-
-.get(/^\/(?!api).*/, (req, res) => { //serve index for any route that isn't an api call
-  res.sendFile(path.join(__dirname, '../public', 'index.html'))});
-
 if (!devEnv) {
   app.static(path.join(__dirname, '../public'));
 } else {
   devServer = new webpackDevServer(compiler, {
-    contentBase: config.output.path,
+    contentBase: __dirname,
     hot: true,
-    historyApiFallback: false,
-    publicPath: config.output.publicPath,
+    noInfo: true,
+    historyApiFallback: true,
   });
-  devServer.listen(8080);
+  app.use('/public/', proxy(url.parse('http://localhost:8080/public')));
+  devServer.listen(8080, () => console.log('DEVSERVER LISTENING ON 8080'));
 }
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../public','index.html'))
+});
+
+module.exports = app;
