@@ -22,7 +22,8 @@ const common = {
   },
   output: {
     path: PATHS.app,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: path.join(__dirname, "build/")
   },
   module: {
     loaders: [
