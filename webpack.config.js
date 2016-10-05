@@ -6,7 +6,7 @@ module.exports = {
     bundle: [path.resolve(__dirname, 'client', 'index.js'),
             'webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:8080'],
-//    test: './client/test/index.js'
+    test: './test/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'public/'),
@@ -31,14 +31,20 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: 'node_modules',
         query: {
-          presets: ['es2015', 'react', 'stage-0']
+          presets: ['react', 'es2015', 'stage-0']
         }
       },
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-  ]
+  ],
+//  qwexternals: {
+//    'cheerio': 'window',
+//    'react/addons': true,
+//    'react/lib/ExecutionEnvironment': true,
+//    'react/lib/ReactContext': true,
+//  }
 };
