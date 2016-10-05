@@ -28,3 +28,7 @@ render(
   </Provider>,
   document.getElementById('entry')
 )
+
+if (module.hot) {
+  module.hot.accept();
+}
