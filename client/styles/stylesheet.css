@@ -29,6 +29,10 @@ body {
   background-size: cover;
 }
 
+.notification-bar {
+  position: fixed;
+  z-index: 99999;
+}
 
 /* start Users table*/
 
