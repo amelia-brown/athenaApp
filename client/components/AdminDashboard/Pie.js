@@ -4,7 +4,13 @@ import rd3 from 'rd3';
 
 
 var PieChart = rd3.PieChart;
-var pieData = [{label: "Camera", value: 20.0}, {label: "Computer", value: 55.0}, {label: "Monitor", value: 25.0 }, {label: "Printer", value: 25.0 }];
+var numProducts = {
+  camera: 0,
+  computer: 0,
+  monitor: 0,
+  printer: 0
+}
+var pieData = [{label: "Camera", value: 20.0}, {label: "Computer", value: 55.0}, {label: "Monitor", value: 12.5 }, {label: "Printer", value: 12.5 }];
 
 class Pie extends React.Component {
   constructor(props) {

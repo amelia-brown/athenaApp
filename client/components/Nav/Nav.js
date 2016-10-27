@@ -77,7 +77,7 @@ const NavContainer = ({dispatch, auth, location}) => {
         <Link to='/' className="logo">
           <img src={ ram } alt="logo"/>
         </Link>
-        { JSON.parse(Cookies.get('roles'))
+        { Cookies.get('roles')
           && JSON.parse(Cookies.get('roles'))[0] === 'guest'
         ? <Link to='/login'
            className='logoutnav'>Login</Link>

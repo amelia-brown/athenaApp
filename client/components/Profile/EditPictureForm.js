@@ -22,7 +22,7 @@ export class EditPictureFormContainer extends React.Component {
   }
 
   editProfilePicture () {
-    userUtils.changeProfilePicture(this.props.user._id, this.props.user.password);
+    userUtils.changeProfilePicture(this.props.user._id);
   }
 
   handleToggle() {

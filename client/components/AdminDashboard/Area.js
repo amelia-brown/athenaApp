@@ -33,7 +33,7 @@ var Area = React.createClass({
         height={400}
         title="Trending Articles"
         xAxisTickInterval={{unit: 'number', interval: 3}}
-        xAxisLabel="October"
+        xAxisLabel=""
         yAxisLabel="View Count"
         xAccessor={(d)=> {
             return new Date(d[0]);

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import Cookies from 'js-cookie';
 import Nav from './Nav/Nav';
 
 import * as actionCreators from '../actions/index';
