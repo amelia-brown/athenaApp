@@ -1,4 +1,4 @@
-'use strict' 
+'use strict'
 const parseurl = require('parseurl');
 const express = require('express');
 
@@ -15,7 +15,7 @@ module.exports = {
   path: require('path'),
   sessionPageViews(req, res, next) {
     let views = req.session.views;
-    if(!views) 
+    if(!views)
       views = req.session.views = {};
     let pathname = parseurl(req).pathname;
     views[pathname] = (views[pathname] || 0) + 1;

@@ -13,6 +13,8 @@ data.json
 node_modules
 npm-debug.log
 
+coverage/
+
 # Floobits
 .floo
 .floobit

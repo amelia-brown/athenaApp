@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 export default {
   getTickets () {
-    return fetch('http://localhost:3000/api/ticket', {
+    return fetch('/api/ticket', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
