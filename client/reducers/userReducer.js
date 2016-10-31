@@ -27,6 +27,7 @@ const userReducer = function(state = initialState, action) {
       };
     case 'SET_CURRENT_USER_FULFILLED':
       return {
+        ...state,
         currentUser: action.payload[0],
         status: 'fulfilled'
       };

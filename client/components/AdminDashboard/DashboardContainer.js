@@ -18,22 +18,22 @@ class DashboardContainer extends AuthorizedComponent {
     this.notAuthorizedPath = '/not-found';
     this.state = {
       articles: [],
-      exportOptions: 
+      exportOptions:
         [
           {
-            description: 'Articles', 
+            description: 'Articles',
             endpoint: 'kbExport'
           }, {
-            description: 'Article-Ticket Relations', 
+            description: 'Article-Ticket Relations',
             endpoint: 'kbRelationsExport'
           }, {
-            description: 'Tickets', 
+            description: 'Tickets',
             endpoint: 'ticketExport'
           }, {
-            description: 'Ticket-Article Relations', 
+            description: 'Ticket-Article Relations',
             endpoint: 'ticketRelationsExport'
           }
-        ] 
+        ]
     }
     this.handleTable = this.handleTable.bind(this);
   }
@@ -62,7 +62,7 @@ class DashboardContainer extends AuthorizedComponent {
         <div className='exportDiv'>
           <select id="tableSelect" onChange={this.handleTable} defaultValue="default">
             <option value="default" disabled>Select Table</option>
-            {this.state.exportOptions.map((table, i) => 
+            {this.state.exportOptions.map((table, i) =>
               <option>{table.description}</option>)}
           </select>&nbsp;
           <a className="exportButton" href={this.state.exportTable ? `/api/${this.state.exportTable}` : '#'}>Export</a>
@@ -72,7 +72,7 @@ class DashboardContainer extends AuthorizedComponent {
             <Bar articles={this.state.articles} />
           </div>
           <div className='graph'>
-            <Pie />
+            <Pie articles={this.state.articles} />
           </div>
         </div>
         <div className='row'>
