@@ -1,0 +1,22 @@
+version: '2'
+services:
+  app:
+    image: node:4
+    volumes:
+      - ".:/src"
+    ports:
+        - "3000:3000"
+    depends_on:
+        - mongo
+    environment:
+        - PORT=3000
+        - DATABASE_URL=mongodb://mongo/db
+    command: bash -c 'sleep infinity'
+  mongo:
+    image: mongo:3.2
+    ports:
+      - "27010:27017"
+    volumes:
+      - ./.database:/data
+
+
